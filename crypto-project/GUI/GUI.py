@@ -35,11 +35,11 @@ def getGraph():
     priceData = coinData["prices"]
     priceData = pd.DataFrame(priceData, columns = ["Date", "Price"])
     priceData["Date"] = pd.to_datetime(priceData["Date"], unit ="ms")
+    priceData.set_index('Date',inplace=True)	
     
     figure.clear()
     ax = figure.add_subplot(111)
-    df = priceData[['Date','Price']].groupby('Date').sum()
-    df.plot(kind='line', legend=True, ax=ax, color='r',marker= None, fontsize=10)
+    priceData.plot(kind='line', legend=True, ax=ax, color='r',marker= None, fontsize=10, grid =True)
     ax.set_title(f'Price of {coinInput.capitalize()} in {currencyInput.upper()}')
     canvas.draw_idle()
 
